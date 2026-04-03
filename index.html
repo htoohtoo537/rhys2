@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Life Journey</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Pyidaungsu', sans-serif; /* Standard Myanmar Font */
+            line-height: 1.6;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        /* This applies the side-by-side layout to ALL sections */
+        #mybio, #myhobby, #mydream, #mysubject {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            padding: 40px;
+            max-width: 1100px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        /* Alternating layout: every second section flips the image to the left */
+        #myhobby, #mysubject {
+            flex-direction: row-reverse;
+        }
+
+        .text-content {
+            flex: 2;
+        }
+
+        .img-content {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .img-content img {
+            width: 100%;
+            max-width: 350px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .img-content img:hover {
+            transform: scale(1.03);
+        }
+
+        h1 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        /* Mobile View */
+        @media (max-width: 768px) {
+            #mybio, #myhobby, #mydream, #mysubject {
+                flex-direction: column !important;
+                text-align: center;
+                padding: 20px;
+            }
+            .img-content img {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="mybio">
+        <div id="mybio_text">
+            <h1>အားလုံးဘဲ မင်္ဂလာပါခင်ဗျာ</h1> 
+            <p>
+                ကျွန်တော့်နာမည်ကတော့ ထူးထူးနိုင်လို့ခေါ်ပါတယ်ဗျ။ အခုကတော့ ကျွန်တော့်ရဲ့ ပထမဦးဆုံး ဝက်ဘ်ဆိုက်ကို စတင်ပြုလုပ်ခဲ့တာဖြစ်ပါတယ်။ 
+                ကျွန်တော်ကတော့ ၂၀၁၀ ခုနှစ်မှာ မွေးဖွားခဲ့တာဖြစ်ပါတယ်ဗျ။ အခုကတော့ ကျွန်တော့်အကြောင်းလေးတွေ နည်းနည်းပြောရင်းနဲ့ 
+                စိတ်ဝင်စားစရာကောင်းတဲ့ အကြောင်းတွေကိုလည်း တစ်ဆက်တည်း ပြောပြသွားမှာပါဗျ။
+                ပထမဦးဆုံးအနေနဲ့ ကျွန်တော့်ရဲ့အကြောင်းလေးတွေ ပြောပြပါရစေ။
+            </p>
+        </div>
+
+        <div id="mybio_img">
+            <img src="https://zwcemnkkuyxdkeuxoqga.supabase.co/storage/v1/object/public/Batman/IMG_20260327_121355.png" alt="My Profile Image"> 
+        </div>
+    </div>
+<div id="myhobby">
+        <div id="myhobby_text">
+
+<h1> ၁။ဝါသနာ </h1>
+<p>
+
+
+ကျွန်တော့ရဲ့ဝါသနာပိုင်းမာဆိုရင်ကျွန်တော်ကအများအားဖြင့်လျှောက်လည်ရတာကိုသိပ်ဝါသနာပါတာ။ပြီတော့နောက်တစ်ခုကငါးဖမ်းရတာဘာဘဲကျွန်တော်ကသူအများအသတ်သတ်ရတာမကြိုက်ပေမယ့်ငါးဖမ်းတာကတော့ချွင်းချက်ဖြစ်နေတာပေါ့ဗျာ။
+
+</p>
+</div>
+        <div id="myhobby_img">
+  <img src="https://zwcemnkkuyxdkeuxoqga.supabase.co/storage/v1/object/public/Batman/1775118607792.png"> 
+
+  </div>
+    </div>
+    
+    <div id="mydream">
+        <div id="mydream_text">
+
+<h1> ၂။အိမ်မက် </h1>
+<p>
+
+ကျွန်တော့ရဲ့အိမ်မက်ကတော့ရိုးရှင်းလွန်းပါတယ်ပညာတတ်အောင်လုပ်မယ်၊အရွယ်ရောက်ရင်မိဘကိုလုပ်ကျွေးနိုင်အောင်လုပ်မယ်၊ပြီရင်တော့ကျွန်တော့ရဲ့ favourite country ဖြစ်တဲ့ Brazil နိုင်ငံလေးကိုသွားလည်ချင်တာပေါ့ဗျာ၊လည်ပြီရင်ပိုက်ဆံကိုရအောင်စုမယ်၊မိဘကိုကောင်းကောင်းမွန်မွန်နေရအောင်လုပ်မယ် အဲ့အရာတွေကိုပြီမြှောက်အောင်လုပ်ရမယ်။
+
+</p>
+</div>
+        <div id="mydream_img">
+  <img src="https://zwcemnkkuyxdkeuxoqga.supabase.co/storage/v1/object/public/Batman/1775137101879.png"> 
+
+  </div>
+    </div>
+
+<div id="mysubject">
+        <div id="mysubject_text">
+
+<h1> ၃။ဘာသာရပ် </h1>
+<p>
+
+ကျွန်တော့မှာအကျင့်လေးတေတော့ရှိတယ်ဗျ အဲ့တာကစာသင်နေချိန်မာစာစိတ်မဝင်စားတာ၊သူငယ်ချင်းတေနဲ့စကားပြောတာ၊အိပ်ငိုက်တာ၊ပျင်းတာ အဲ့တာတေကတော့အခြားလူတေအမြင်မာအကျင့်ဆိုးဘဲပေါ့ ဒါပေမယ့်လဲကိုယ့်အမြင်မှာတော့နေရထိုင်ရသက်တောင့်သက်သာဖြစ်စေမဲ့အရာတေလို့ဘဲထင်ထားတာလေဗျာ။ကျွန်တော်ကတော့သခ်ျာ၂မှာလုံးဝကိုနားမလည်တာဗျို့။စသင်ကတည်းကလိုက်နားမထောင်လို့ဖြစ်မယ်ထင်တာဘဲဗျာ။ဒါပေမယ့်ကျန်တော်ကစိတ်ဝင်စားရင်အကုန်အလွယ်တတ်တယ်ဗျ။အဓိကလိုအပ်တာကစိတ်ဝင်စားမှုဘဲလေဗျာ။ဒါပေမယ့်လဲကျွန်တော်တို့လူငယ်တိုင်းမှာကသူ့အချိန်နဲ့သူလေ၊စကားပြောချင်တဲ့ချိန်ဆိုပြောရမာကျေနပ်တာ၊ဆရာ/ဆရာမဆူရင်တောင်ခိုးပြောရမှလေဗျာ၊စိတ်ဝင်စားတဲ့ချိန်ဆိုရင်လဲလွတ်စိတ်ဝင်စား​တာလေဗျာ၊ဒါပေမယ်သူကြိုက်တဲ့အရာတွေ့ပြီဆိုတာနဲ့အာရုံပြောင်းရောဘဲ၊ဒါကျွန်တော်တို့ရဲ့လူငယ်တေရဲ့ဖြစ်နေကြပုံစံလေးတေပေါ့ဗျာ။ကဲကျွန်တော့အကြောင်းနည်းနည်းလေးဆက်ရအောင် ကျွန်တော်ကသခ်ျာ၁မာတော့တော်တော်ကိုသိတယ်လို့ဘဲပြောရမာတစ်ခေါက်လေးဘဲနားထောင်လိုက်အကုန်တွက်တတ်သွားပြီး၊တစ်ခြားဘာရပ်တေကော်ဘဲဗျဖတ်တာလာ၊ကျက်တာလာ၊စဥ်းစားတာလာ အကုန်ရတယ်ဗျာ။ဒါပေမယ့်လဲစိတ်ဝင်စားတဲ့အချိန်မှပေါ့ဗျာ။တစ်ခုတော့ရှိတယ်ဗျ အဂ်လိပ်ချိန်ကြအမြဲငိုက်တာတော့ပြင်လို့မရသေးဘူးဗျာ။ဒါမဲ့ဆရာမသိအောင်ငိုက်ရတာဗျ။ကျန်တော်တို့ကတော့အဂ်လိပ်ဆရာကိုကျဲဲကြီးလို့ခေါ်ကြတာဗျ။လွတ်ကြိတ်တာဗျို့၊လက်ကသွေးကြောတေကတစ်ထောင်ထောင်နဲ့ဗျာ။ဒါပေမယ့်လဲငိုက်ကြတာဘဲပေါ့ဗျာ။တစ်ခို့ဆိုခေါင်းကြီးဆိုက်ပြီးထိုင်ရက်ကြီးအိပ်နေတာဗျ။ကျွန်တော်ကတော့မအိပ်အောင်ထိန်းရတာပေါ့ဗျာ။ကျန်တဲ့ဘာသာရပ်တေဆို​ရင်တော့သိပ်မငိုက်ဘူးဗျဒီဘာသာမှတော်တော်ဆိုးဆိုးပါဗျာ။
+
+</p>
+</div>
+  
+    </div>
+</body>
+</html>
