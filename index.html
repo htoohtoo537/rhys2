@@ -6,74 +6,80 @@
     <title>My Life Journey</title>
     <style>
         /* General Styles */
-        body {
-            font-family: 'Pyidaungsu', sans-serif; /* Standard Myanmar Font */
-            line-height: 1.6;
-            background-color: #f4f4f9;
-            color: #333;
-            margin: 0;
-            padding: 20px;
-        }
+        
+body {
+    font-family: 'Pyidaungsu', sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f9;
+    color: #333;
+    margin: 0;
+    padding: 10px;
+}
 
-        /* This applies the side-by-side layout to ALL sections */
-        #mybio, #myhobby, #mydream, #mysubject {
-            display: flex;
-            align-items: center;
-            gap: 40px;
-            padding: 40px;
-            max-width: 1100px;
-            margin: 20px auto;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-        }
+#mybio, #myhobby, #mydream, #mysubject {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    padding: 40px;
+    max-width: 1100px;
+    margin: 20px auto;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
 
-        /* Alternating layout: every second section flips the image to the left */
-        #myhobby, #mysubject {
-            flex-direction: row-reverse;
-        }
+#myhobby, #mysubject {
+    flex-direction: row-reverse;
+}
 
-        .text-content {
-            flex: 2;
-        }
+h1 {
+    color: #2c3e50;
+    border-bottom: 2px solid #3498db;
+    display: inline-block;
+    margin-bottom: 15px;
+    font-size: 1.8rem;
+}
 
-        .img-content {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-        }
+/* ✅ Target both class AND id for images */
+#mybio_img, #myhobby_img, #mydream_img, #mysubject_img {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-        .img-content img {
-            width: 100%;
-            max-width: 350px;
-            border-radius: 15px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-        }
+#mybio_img img, #myhobby_img img, #mydream_img img, #mysubject_img img {
+    width: 100%;
+    max-width: 300px;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 15px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
 
-        .img-content img:hover {
-            transform: scale(1.03);
-        }
+/* ✅ MOBILE FIX */
+@media (max-width: 768px) {
+    #mybio, #myhobby, #mydream, #mysubject {
+        flex-direction: column !important;
+        padding: 20px;
+        gap: 16px;
+        margin: 10px;
+    }
 
-        h1 {
-            color: #2c3e50;
-            border-bottom: 2px solid #3498db;
-            display: inline-block;
-            margin-bottom: 15px;
-        }
+    h1 {
+        font-size: 1.3rem;
+    }
 
-        /* Mobile View */
-        @media (max-width: 768px) {
-            #mybio, #myhobby, #mydream, #mysubject {
-                flex-direction: column !important;
-                text-align: center;
-                padding: 20px;
-            }
-            .img-content img {
-                max-width: 100%;
-            }
-        }
-    </style>
+    #mybio_img img, #myhobby_img img, #mydream_img img, #mysubject_img img {
+        width: 100%;
+        max-width: 100%;
+        height: 200px;         /* ✅ Fixed height on mobile */
+        object-fit: cover;     /* ✅ No stretching */
+        border-radius: 12px;
+    }
+}
+        
+                
 </head>
 <body>
 
