@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classic Green Clock</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* CSS Animations နှင့် Custom Styles များ */
+        :root {
+            --primary-green: #2ecc71;
+            --dark-green: #27ae60;
+            --bg-dark: #1a1a1a;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* နာရီ၏ အပြင်ဘောင် (Clock Face) */
+        .clock {
+            width: 280px;
+            height: 280px;
+            border: 10px solid var(--primary-green);
+            border-radius: 50%;
+            position: relative;
+            background: radial-gradient(circle, #2d3436 0%, #000000 100%);
+            box-shadow: 0 0 30px rgba(46, 204, 113, 0.3), inset 0 0 20px rgba(0,0,0,0.5);
+            margin-bottom: 2rem;
+        }
+
+        /* နာရီအလယ်ဗဟို အစက် (Center Pivot) */
+        .clock::after {
+            content: '';
+            width: 12px;
+            height: 12px;
+            background: var(--primary-green);
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+        }
+
+        /* နာရီလက်တံများ၏ ဘုံပုံစံ (Hand Common Styles) */
+        .hand {
+            position: absolute;
+            bottom: 50%;
+            left: 50%;
+            transform-origin: bottom;
+            border-radius: 10px;
+            transition-timing-function: cubic-bezier(0.1, 2.7, 0.58, 1);
+        }
+
+        /* နာရီလက်တံ (Hour Hand) */
+        .hour-hand {
+            width: 6px;
+            height: 60px;
+            background-color: white;
+            z-index: 3;
+        }
+
+        /* မိနစ်လက်တံ (Minute Hand) */
+        .min-hand {
+            width: 4px;
+            height: 90px;
+            background-color: var(--primary-green);
+            z-index: 4;
+        }
+
+        /* စက္ကန့်လက်တံ (Second Hand) */
+        .second-hand {
+            width: 2px;
+            height: 100px;
+            background-color: #e74c3c; /* Contrast color for seconds */
+            z-index: 5;
+        }
+
+        /* နာရီနံပါတ်များ (Numbers) */
+        .number {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--primary-green);
+            padding: 10px;
+        }
+
+        /* Mobile Controls Styling */
+        .controls {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            width: 90%;
+            max-width: 400px;
+        }
+
+        .btn {
+            background: #333;
+            border: 1px solid var(--primary-green);
+            padding: 12px;
+            border-radius: 8px;
+            color: white;
+            font-size: 0.9rem;
+            active: scale(0.95);
+            transition: all 0.2s;
+        }
+
+        .btn:active {
+            background: var(--dark-green);
+        }
+
+        .status-panel {
+            margin-top: 15px;
+            padding: 10px;
+            background: rgba(46, 204, 113, 0.1);
+            border-radius: 5px;
+            font-size: 0.8rem;
+            text-align: center;
+            width: 80%;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- နာရီပုံစံ တည်ဆောက်ခြင်း -->
+    <div class="clock" id="clock">
+
+<!-- နံပါတ်များ ထည့်သွင်းခြင်း (JS မှတဆင့်လည်း ထည့်နိုင်သော်လည်း ဥပမာအနေဖြင့် ၁၂ နာရီကို ပြထားသည်) -->
+        <div class="number" style="transform: rotate(0deg)">12</div>
+        <div class="number" style="transform: rotate(90deg)"><span style="display:inline-block; transform: rotate(-90deg)">3</span></div>
+        <div class="number" style="transform: rotate(180deg)"><span style="display:inline-block; transform: rotate(-180deg)">6</span></div>
+        <div class="number" style="transform: rotate(270deg)"><span style="display:inline-block; transform: rotate(-270deg)">9</span></div>
+
+        <!-- လက်တံများ -->
+        <div class="hand hour-hand" id="hour-hand"></div>
+        <div class="hand min-hand" id="min-hand"></div>
+        <div class="hand second-hand" id="second-hand"></div>
+    </div>
+
+    <div class="status-panel" id="status-text">
+        Live Clock Active
+    </div>
+
+    <!-- Mobile Controls ခလုတ်များ -->
+    <div class="controls mt-4">
+        <button class="btn" onclick="toggleTheme()">Change Color</button>
+        <button class="btn" onclick="toggleSmooth()">Smooth Move</button>
+        <button class="btn" onclick="resetClock()">Reset View</button>
+        <button class="btn" onclick="showDigital()">Digital Toggle</button>
+    </div>
+
+    <div id="digital-clock" class="mt-4 text-2xl font-mono hidden">00:00:00</div>
+
+    <script>
+        /**
+         * JavaScript ရှင်းလင်းချက်များ-
+         * 1. querySelector: HTML element များကို ရွေးချယ်ရန် သုံးသည်။
+         * 2. setInterval: သတ်မှတ်ထားသော အချိန်အပိုင်းအခြားအလိုက် logic တစ်ခုကို ထပ်ခါတလဲလဲ လုပ်ဆောင်ရန် သုံးသည်။
+         * 3. Date object: လက်ရှိ စက်၏ အချိန်ကို ရယူရန် သုံးသည်။
+         */
+
+        const hourHand = document.querySelector('#hour-hand');
+        const minHand = document.querySelector('#min-hand');
+        const secondHand = document.querySelector('#second-hand');
+        const statusText = document.querySelector('#status-text');
+        const digitalDisplay = document.querySelector('#digital-clock');
+
+        let isSmooth = false;
+        let isAltColor = false;
+
+        /**
+         * updateClock function:
+         * လက်ရှိအချိန်ကို တွက်ချက်ပြီး လက်တံများကို လည်ပတ်စေသော အဓိက logic ဖြစ်သည်။
+         */
+        function updateClock() {
+            const now = new Date();
+
+            // စက္ကန့်ကို ရယူပြီး ဒီဂရီပြောင်းခြင်း (၃၆၀ ဒီဂရီ / ၆၀ စက္ကန့် = ၆ ဒီဂရီ တစ်စက္ကန့်စာ)
+            const seconds = now.getSeconds();
+            const secondsDegrees = ((seconds / 60) * 360);
+            secondHand.style.transform = translateX(-50%) rotate(${secondsDegrees}deg);
+
+            // မိနစ်ကို ရယူခြင်း
+            const mins = now.getMinutes();
+            const minsDegrees = ((mins / 60) * 360) + ((seconds / 60) * 6);
+            minHand.style.transform = translateX(-50%) rotate(${minsDegrees}deg);
+
+            // နာရီကို ရယူခြင်း
+            const hour = now.getHours();
+            const hourDegrees = ((hour / 12) * 360) + ((mins / 60) * 30);
+            hourHand.style.transform = translateX(-50%) rotate(${hourDegrees}deg);
+
+            // Digital display update
+            digitalDisplay.innerText = now.toLocaleTimeString();
+        }
+
+        /**
+         * Control Functions:
+         */
+
+        // အရောင်ပြောင်းလဲခြင်း (Theme Toggle)
+        function toggleTheme() {
+            isAltColor = !isAltColor;
+            const root = document.documentElement;
+            if (isAltColor) {
+                root.style.setProperty('--primary-green', '#3498db'); // Blue theme
+                statusText.innerText = "Theme: Blue Ocean";
+            } else {
+                root.style.setProperty('--primary-green', '#2ecc71'); // Green theme
+                statusText.innerText = "Theme: Classic Green";
+            }
+        }
+
+        // လက်တံများ ရွေ့လျားပုံကို ပြောင်းလဲခြင်း (Smooth Transition)
+
+function toggleSmooth() {
+            isSmooth = !isSmooth;
+            const hands = document.querySelectorAll('.hand');
+            hands.forEach(hand => {
+                hand.style.transition = isSmooth ? "all 0.5s cubic-bezier(0.1, 2.7, 0.58, 1)" : "none";
+            });
+            statusText.innerText = isSmooth ? "Smooth Motion: ON" : "Smooth Motion: OFF";
+        }
+
+        // Digital နာရီ ပြသခြင်း/ဖျောက်ခြင်း
+        function showDigital() {
+            digitalDisplay.classList.toggle('hidden');
+            statusText.innerText = "Digital Display Toggled";
+        }
+
+        // နာရီကို မူလအတိုင်း ပြန်ပြင်ခြင်း
+        function resetClock() {
+            location.reload();
+        }
+
+        // နာရီကို ၁ စက္ကန့်လျှင် တစ်ကြိမ် Update လုပ်ပေးရန်
+        setInterval(updateClock, 1000);
+
+        // စစချင်းတွင် ချက်ချင်း အချိန်ပြရန်
+        updateClock();
+
+        /**
+         * HTML Attributes ရှင်းလင်းချက်-
+         * 1. viewport meta: ဖုန်းမျက်နှာပြင်နှင့် အံကိုက်ဖြစ်အောင် ချိန်ညှိပေးသည်။
+         * 2. transform-origin: လက်တံများ လည်ပတ်သည့်အခါ အောက်ခြေမှ ဗဟိုပြု၍ လည်ရန် သတ်မှတ်သည်။
+         * 3. transition: လက်တံများ ရွေ့လျားသည့်အခါ တုန်ခါမှု (bounce effect) လှပစေရန် သုံးသည်။
+         * 4. onclick: ခလုတ်နှိပ်သည့်အခါ JS function များကို ခေါ်ယူရန် သုံးသည်။
+         */
+    </script>
+</body>
+</html>
